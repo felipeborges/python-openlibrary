@@ -30,7 +30,15 @@ Unpack it and run:
 
 ***
 
-##Example##
+##Using##
+
+###Documentation###
+
+    $ pydoc openlibrary.Publisher
+    $ pydoc openlibrary.Author
+    $ pydoc openlibrary.Book
+
+###Example###
 
 To create an instance of the openlibrary.Api class:
 
