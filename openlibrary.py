@@ -197,14 +197,19 @@ class Book(object):
 
 class Api:
     def __init__(self):
-        self.base_url = "http://openlibrary.org/api/"
+        self.base_url = "http://openlibrary.org/api/books?bibkeys="
 		
-    def GetBook(self, isbn):
-        '''Get a Book by its ISBN number.
+    def GetBook(self, id, bibkey = "ISBN"):
+        '''Get a Book by its ID: ISBN (default), LCCN, OCLC
+        or OLID (Open Library ID).
         
         Returns:
             A Book instance.
         '''
-        url = urllib2.urlopen(self.base_url+"books?bibkeys=ISBN:%s&jscmd=data&format=json" % isbn)
-        data = simplejson.load(url)['ISBN:%s' % isbn]
+        url = urllib2.urlopen(self.base_url+bibkey+":%s&jscmd=data&format=json" % id)
+        data = simplejson.load(url)['%s:%s' % (bibkey, id)]
         return Book.BookFromJsonDict(data)
+		
+		
+a = Api()
+print a.GetBook("OL123M", "OLID")

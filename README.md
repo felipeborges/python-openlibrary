@@ -50,6 +50,11 @@ To get a Book by its ISBN number:
     >>> book = api.GetBook("0451526538")
     'The adventures of Tom Sawyer'
 
+To get a Book by its OLID (Open Library ID) number:
+
+    >>> book = api.GetBook("OL123M", "OLID")
+    'Stories of Indian life.'
+
 To get the Authors of this given Book:
 
     >>> authors = book.GetAuthors()
