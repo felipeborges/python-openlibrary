@@ -8,7 +8,7 @@ which intends to create _"one web page for every book ever publised"_.
 
 [OpenLibrary.org](http://openlibrary.org)
 
-***
+___
 
 ##Building##
 
@@ -26,9 +26,8 @@ Unpack it and run:
 
     $ sudo python setup.py build
     $ sudo python setup.py install
-    
 
-***
+___
 
 ##Using##
 
@@ -47,20 +46,20 @@ To create an instance of the openlibrary.Api class:
 
 To get a Book by its ISBN number:
 
-    >>> book = api.GetBook("0451526538")
+    >>> book = api.get_book("0451526538")
     'The adventures of Tom Sawyer'
 
-To get a Book by its OLID (Open Library ID) number:
+To get a Book by its OLID (Open Library ID):
 
-    >>> book = api.GetBook("OL123M", "OLID")
+    >>> book = api.get_book("OL123M", "OLID")
     'Stories of Indian life.'
 
 To get the Authors of this given Book:
 
-    >>> authors = book.GetAuthors()
-    >>> print [author.GetName() for author in authors]
-	
-* * *
+    >>> authors = book.get_authors()
+    >>> print [author.get_name() for author in authors]
+
+___
 
 ## License ##
 
@@ -80,4 +79,3 @@ To get the Authors of this given Book:
         along with this program; if not, write to the Free Software
         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
         MA 02110-1301, USA.
-

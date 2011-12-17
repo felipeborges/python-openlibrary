@@ -15,7 +15,7 @@ class Publisher(object):
                  name = None):
         self.name = name
 
-    def GetName(self):
+    def get_name(self):
         '''Get the Publisher name.
         
         Returns:
@@ -24,7 +24,7 @@ class Publisher(object):
         return self.name
 		
     @staticmethod
-    def PublisherFromJsonDict(data):
+    def get_publisher_from_json_dict(data):
         '''Creates a new Publisher instance based on a JSON dict.
 		
         Args:
@@ -51,7 +51,7 @@ class Author(object):
         self.name = name
         self.url = url
         
-    def GetName(self):
+    def get_name(self):
         '''Get the author name.
         
         Returns:
@@ -59,7 +59,7 @@ class Author(object):
         '''
         return self.name
       
-    def GetUrl(self):
+    def get_url(self):
         '''Get the author url.
         
         Returns:
@@ -68,7 +68,7 @@ class Author(object):
         return self.url
         
     @staticmethod
-    def AuthorFromJsonDict(data):
+    def get_author_from_json_dict(data):
         '''Creates a new Author instance based on a JSON dict.
 		
         Args:
@@ -118,7 +118,7 @@ class Book(object):
         self.authors = authors
         self.publish_places = publish_places
 		
-    def GetTitle(self):
+    def get_title(self):
         '''Get the title of this Book.
 		
         Returns:
@@ -126,7 +126,7 @@ class Book(object):
         '''
         return self.title
 		
-    def GetAuthors(self):
+    def get_authors(self):
         '''Get the list of authors of this book.
 		
         Returns:
@@ -134,7 +134,7 @@ class Book(object):
         '''
         return self.authors
 		
-    def GetPublishers(self):
+    def get_publishers(self):
         '''Get a list of publishers of this book.
 		
         Returns:
@@ -143,7 +143,7 @@ class Book(object):
         '''
         return self.publishers
         
-    def GetNumberOfPages(self):
+    def get_number_of_pages(self):
         '''Get the number of pages of the Book.
         
         Returns:
@@ -151,7 +151,7 @@ class Book(object):
         '''
         return self.number_of_pages
       
-    def GetBookCover(self):
+    def get_book_cover(self):
         '''Get the Book cover.
         
         Returns:
@@ -160,7 +160,7 @@ class Book(object):
         return self.cover
         
     @staticmethod
-    def BookFromJsonDict(data):
+    def get_book_from_json_dict(data):
         '''Creates a new Book instance based on a JSON dict.
 		
         Args:
@@ -168,8 +168,8 @@ class Book(object):
         Returns:
             A Book instance
         '''
-        publishers = [Publisher.PublisherFromJsonDict(p) for p in data['publishers']]
-        authors = [Author.AuthorFromJsonDict(a) for a in data['authors']]
+        publishers = [Publisher.get_publisher_from_json_dict(p) for p in data['publishers']]
+        authors = [Author.get_author_from_json_dict(a) for a in data['authors']]
 		
         return Book(publishers = publishers,
                     identifiers = data.get('identifiers', None),
@@ -199,7 +199,7 @@ class Api:
     def __init__(self):
         self.base_url = "http://openlibrary.org/api/books?bibkeys="
 		
-    def GetBook(self, id, bibkey = "ISBN"):
+    def get_book(self, id, bibkey = "ISBN"):
         '''Get a Book by its ID: ISBN (default), LCCN, OCLC
         or OLID (Open Library ID).
         
@@ -208,8 +208,4 @@ class Api:
         '''
         url = urllib2.urlopen(self.base_url+bibkey+":%s&jscmd=data&format=json" % id)
         data = simplejson.load(url)['%s:%s' % (bibkey, id)]
-        return Book.BookFromJsonDict(data)
-		
-		
-a = Api()
-print a.GetBook("OL123M", "OLID")
+        return Book.get_book_from_json_dict(data)
